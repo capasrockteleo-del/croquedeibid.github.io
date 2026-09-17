@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - CROQUEDEIBID</title>
+    <!-- Librería de iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #8B4513; /* Marrón cálido */
+            --color-secondary: #F4E8D1; /* Fondo claro crema */
+            --color-accent: #D2B48C; /* Tono arena */
+            --color-text: #333333;
+            --color-white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: url('fondo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* ========================================= */
+        /* BARRA SUPERIOR FIJA AL HACER SCROLL */
+        /* ========================================= */
+        .top-delivery-bar {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #111;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 1002;
+            height: 55px; 
+        }
+
+        .bar-layer-initial {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            z-index: 2;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .bar-layer-revealed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            z-index: 1;
+        }
+
+        .bar-sweeper-moto {
+            position: absolute;
+            font-size: 2.2rem;
+            top: 50%;
+            transform: translateY(-50%) scaleX(1); 
+            z-index: 10;
+            filter: drop-shadow(-2px 2px 3px rgba(0,0,0,0.3));
+            will-change: left;
+        }
+
+        .top-delivery-bar span.highlight {
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+        /* HEADER CON BANNER DE FONDO ROTATIVO */
+        header {
+            background-color: var(--color-secondary);
+            position: relative;
+            padding: 3rem 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            overflow: hidden;
+            
+        }
+
+        /* Contenedor de las imágenes de fondo del banner */
+        .header-banner-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .header-banner-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .header-banner-bg img.active {
+            opacity: 1;
+        }
+
+        /* Capa semitransparente opcional para que el texto resalte sobre las fotos del banner 
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            z-index: 2;
+        }*/
+
+        /* Contenido del header (Logo, título, eslogan) por encima del fondo */
+        header > div {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* ========================================= */
+        /* MENÚ DE NAVEGACIÓN MODERNO */
+        /* ========================================= */
+        nav {
+            background-color: var(--color-primary);
+            padding: 0.8rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 55px;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--color-secondary);
+        }
+
+        
+        /* LOGO CENTRADO */
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--color-primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            background: white;
+            margin: 0 auto;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            color: var(--color-primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--color-primary);
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 0.5rem;
+        }
+
+        p, li {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            color: var(--color-primary);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--color-primary);
+        }
+
+        .btn-enviar {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-enviar:hover {
+            background: #6d340f;
+            transform: translateY(-2px);
+        }
+
+        /* BARRA FLOTANTE LATERAL DE REDES SOCIALES */
+        .social-sidebar {
+            position: fixed;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1500;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .social-sidebar.oculto, .chat-widget-container.oculto {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .social-icon:hover { transform: scale(1.15); }
+        .social-fb { background-color: #1877f2; }
+        .social-yt { background-color: #ff0000; }
+        .social-wa { background-color: #25d366; }
+
+        /* ASISTENTE VIRTUAL CHAT */
+        .chat-widget-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 2500;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        @keyframes flotarConstante {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .chat-toggle-wrapper {
+            position: relative;
+            animation: flotarConstante 3s infinite ease-in-out;
+        }
+
+        .chat-toggle-btn {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .hover-preview-card {
+            position: absolute;
+            bottom: 5px;
+            right: 80px;
+            background: var(--color-white);
+            color: var(--color-primary);
+            padding: 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            border: 2px solid var(--color-secondary);
+            pointer-events: none;
+        }
+
+        .chat-toggle-wrapper:hover .hover-preview-card {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .chat-notification-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 15px;
+            height: 15px;
+            background: #27ae60;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .chat-box {
+            display: none;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 340px;
+            max-height: 480px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--color-secondary);
+        }
+
+        .chat-header {
+            background: var(--color-primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-close { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; }
+        .chat-messages { padding: 1rem; height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #faf8f5; }
+        .message { max-width: 80%; padding: 0.8rem; border-radius: 10px; font-size: 0.9rem; line-height: 1.4; }
+        .message.bot { background: var(--color-secondary); color: var(--color-primary); align-self: flex-start; }
+        .message.user { background: var(--color-primary); color: white; align-self: flex-end; }
+        .chat-input-area { display: flex; padding: 0.8rem; background: white; border-top: 1px solid #ddd; }
+        .chat-input-area input { flex: 1; padding: 0.6rem; border: 1px solid #ccc; border-radius: 20px; outline: none; }
+        .chat-input-area button { background: var(--color-primary); color: white; border: none; padding: 0 1rem; margin-left: 8px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .chat-suggestions { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.5rem 1rem; background: #fff; border-top: 1px solid #eee; }
+        .suggestion-chip { background: var(--color-secondary); color: var(--color-primary); border: none; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR DE DELIVERY -->
+    <div class="top-delivery-bar" id="topDeliveryBar">
+        <div class="bar-layer-revealed"><span>*Revisa los distritos aplicables</span> <span class="highlight">aquí</span></div>
+        <div class="bar-layer-initial" id="barLayerInitial"><span>📦✨</span><span class="highlight">¡Pide tus croquetas hoy y recíbelas en casa las 24H!</span><span>🐶</span></div>
+        <div class="bar-sweeper-moto" id="barMoto">🛵💨</div>
+    </div>
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="index.html#productos">Productos</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="index.html#ingredientes">Ingredientes</a>
+        <a href="noticias.html">Noticias</a>
+        <a href="contacto.html" class="active">Contacto</a>
+    </nav>
+
+    <!-- BARRA FLOTANTE LATERAL DE REDES SOCIALES -->
+    <div id="barraFlotante" class="social-sidebar">
+        <a href="https://facebook.com/tu-pagina" target="_blank" class="social-icon social-fb" title="Síguenos en Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://youtube.com/@tu-canal" target="_blank" class="social-icon social-yt" title="Canal de YouTube">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://wa.me/51999999999?text=Hola,%20deseo%20más%20información%20sobre%20las%20croquetas%20Croquedeibid" target="_blank" class="social-icon social-wa" title="Escríbenos por WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- ASISTENTE VIRTUAL CHAT -->
+    <div id="asistenteVirtual" class="chat-widget-container">
+        <div id="chatBox" class="chat-box">
+            <div class="chat-header">
+                <h4>🤖 Asistente Croquedeibid</h4>
+                <button class="chat-close" onclick="toggleChat()">&times;</button>
+            </div>
+            <div id="chatMessages" class="chat-messages">
+                <div class="message bot">¡Hola! 🐶 ¿Tienes alguna consulta o mensaje para nosotros?</div>
+            </div>
+            <div class="chat-suggestions">
+                <button class="suggestion-chip" onclick="enviarSugerencia('¿Cuáles son los precios?')">Precios</button>
+                <button class="suggestion-chip" onclick="enviarSugerencia('¿Cómo pago por Yape?')">Pago Yape</button>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." onkeypress="manejarEnter(event)">
+                <button onclick="enviarMensajeUser()">Enviar</button>
+            </div>
+        </div>
+        <div class="chat-toggle-wrapper">
+            <div class="hover-preview-card">¡Hola! ¿Dudas o consultas? 🐶 Escríbenos</div>
+            <button class="chat-toggle-btn" onclick="toggleChat()"><span>🤖</span><span class="chat-notification-dot"></span></button>
+        </div>
+    </div>
+
+    <!-- HEADER CON BANNER ROTATIVO DE FONDO -->
+    <header>
+        <!-- Imágenes de fondo que rotarán automáticamente -->
+        <div class="header-banner-bg">
+            <img src="1.jpg" alt="Banner 1" class="active">
+            <img src="2.jpg" alt="Banner 2">
+            <img src="3.jpg" alt="Banner 3">
+        </div>
+        <!-- Capa para asegurar legibilidad del texto -->
+        <div class="header-overlay"></div>
+
+        <!-- Contenido principal centrado -->
+        <div>
+            <h1>CROQUEDEIBID</h1>
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Logo CROQUEDEIBID">
+            </div>
+            <p>SANO Y DELICIOSO - Alimenta tu mascota con lo mejor</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Ponte en Contacto con Nosotros</h2>
+            <p>¿Tienes dudas sobre los ingredientes, quieres hacer un pedido especial o necesitas asistencia? Escríbenos un mensaje:</p>
+            
+            <form action="https://formsubmit.co/tu-correo@gmail.com" method="POST" style="margin-top: 1.5rem;">
+                <input type="hidden" name="_subject" value="¡Nuevo Mensaje de Contacto - Croquedeibid!">
+                <input type="hidden" name="_captcha" value="false">
+
+                <div class="form-group">
+                    <label>Nombre y Apellido:</label>
+                    <input type="text" name="Nombre" required placeholder="Tu nombre...">
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" name="Correo" required placeholder="tucorreo@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono / WhatsApp:</label>
+                    <input type="tel" name="Telefono" required placeholder="Tu número de contacto...">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje:</label>
+                    <textarea name="Mensaje" rows="4" required placeholder="Escribe tu consulta aquí..."></textarea>
+                </div>
+                <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CROQUEDEIBID - Creado por Deibid Rodriguez. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Carrusel automático para el Banner de Fondo del Header
+        let currentBannerIndex = 0;
+        const bannerImages = document.querySelectorAll('.header-banner-bg img');
+
+        function rotarBanner() {
+            if (bannerImages.length === 0) return;
+            bannerImages[currentBannerIndex].classList.remove('active');
+            currentBannerIndex = (currentBannerIndex + 1) % bannerImages.length;
+            bannerImages[currentBannerIndex].classList.add('active');
+        }
+
+        // Cambia de imagen de fondo cada 4000 milisegundos (4 segundos)
+        setInterval(rotarBanner, 4000);
+
+        // Animación de la moto
+        const barMoto = document.getElementById('barMoto');
+        const barLayerInitial = document.getElementById('barLayerInitial');
+        let cicloDuracion = 8000, startTime = null;
+        function animarBarrido(timestamp) {
+            if (!startTime) startTime = timestamp;
+            let progress = ((timestamp - startTime) % cicloDuracion) / cicloDuracion;
+            let motoPos = (progress <= 0.5) ? 105 - ((progress * 2) * 120) : 105;
+            if (progress <= 0.5) barLayerInitial.style.clipPath = `polygon(0 0, ${motoPos}% 0, ${motoPos}% 100%, 0 100%)`;
+            else barLayerInitial.style.clipPath = `polygon(0 0, 105% 0, 105% 100%, 0 100%)`;
+            barMoto.style.left = motoPos + '%';
+            requestAnimationFrame(animarBarrido);
+        }
+        requestAnimationFrame(animarBarrido);
+
+        // Ocultar barras flotantes al llegar al footer
+        window.addEventListener('scroll', function() {
+            const barraFlotante = document.getElementById('barraFlotante');
+            const asistente = document.getElementById('asistenteVirtual');
+            const footer = document.querySelector('footer');
+            const footerRect = footer.getBoundingClientRect();
+            
+            if (footerRect.top <= window.innerHeight - 80) {
+                barraFlotante.classList.add('oculto');
+                asistente.classList.add('oculto');
+            } else {
+                barraFlotante.classList.remove('oculto');
+                asistente.classList.remove('oculto');
+            }
+        });
+
+        // Control del Chat Asistente
+        function toggleChat() {
+            let chatBox = document.getElementById('chatBox');
+            chatBox.style.display = (chatBox.style.display === 'flex') ? 'none' : 'flex';
+        }
+        function enviarSugerencia(texto) {
+            document.getElementById('chatInput').value = texto;
+            enviarMensajeUser();
+        }
+        function manejarEnter(event) { if (event.key === 'Enter') enviarMensajeUser(); }
+        function enviarMensajeUser() {
+            let input = document.getElementById('chatInput');
+            let texto = input.value.trim();
+            if (!texto) return;
+            let chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML += `<div class="message user">${texto}</div>`;
+            input.value = '';
+            setTimeout(() => {
+                chatMessages.innerHTML += `<div class="message bot">¡Gracias por escribirnos! También puedes rellenar el formulario de contacto para una respuesta detallada.</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
