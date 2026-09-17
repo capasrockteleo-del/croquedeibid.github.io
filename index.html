@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CROQUEDEIBID - Sano y Delicioso</title>
+    <style>
+        :root {
+            --color-primary: #8B4513; /* Marrón cálido */
+            --color-secondary: #F4E8D1; /* Fondo claro crema */
+            --color-accent: #D2B48C; /* Tono arena */
+            --color-text: #333333;
+            --color-white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: url('img/fondo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* HEADER CON BANNER DE FONDO ROTATIVO Y COLOR SÓLIDO DETRÁS */
+        header {
+            position: relative;
+            padding: 3rem 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            overflow: hidden;
+            background-color: var(--color-secondary); /* Color de fondo sólido detrás de las imágenes */
+        }
+
+        /* Contenedor de las imágenes de fondo del banner */
+        .header-banner-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .header-banner-bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .header-banner-bg img.active {
+            opacity: 1;
+        }
+
+        /* Contenido del header (Logo, título, eslogan) por encima del fondo */
+        header > div:not(.header-banner-bg) {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========================================= */
+        /* BARRA SUPERIOR FIJA AL HACER SCROLL */
+        /* ========================================= */
+        .top-delivery-bar {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #111;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 1002;
+            height: 55px; 
+        }
+
+        .bar-layer-initial {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            z-index: 2;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .bar-layer-revealed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            z-index: 1;
+        }
+
+        .bar-sweeper-moto {
+            position: absolute;
+            font-size: 2.2rem;
+            top: 50%;
+            transform: translateY(-50%) scaleX(1); 
+            z-index: 10;
+            filter: drop-shadow(-2px 2px 3px rgba(0,0,0,0.3));
+            will-change: left;
+        }
+
+        .top-delivery-bar span.highlight {
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            letter-spacing: 0.8px;
+        }
+
+        /* ESTILO PARA EL LOGO CENTRADO EN EL HEADER */
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--color-primary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            background: white;
+            margin: 0 auto;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            color: var(--color-primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: 600;
+        }
+
+        /* ========================================= */
+        /* MENÚ DE NAVEGACIÓN MODERNO */
+        /* ========================================= */
+        nav {
+            background-color: var(--color-primary);
+            padding: 0.8rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 55px;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--color-secondary);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--color-primary);
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 0.5rem;
+        }
+
+        p, li {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        .img-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-height: 350px;
+            object-fit: cover;
+        }
+
+        /* PORTADA */
+        .hero-section {
+            position: relative;
+            text-align: center;
+            background: url('img/portada.jpg') center/cover no-repeat;
+            color: var(--color-white);
+            padding: 4rem 1.5rem 5rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); 
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            color: #8B4513; 
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8); 
+            font-size: 3.2rem;
+            letter-spacing: 3px;
+            margin-top: -40px; 
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-subtitle {
+            color: #FFD700; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 2rem; 
+            letter-spacing: 1px;
+        }
+
+        .hero-desc {
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .creator {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #fff;
+            background: rgba(139, 69, 19, 0.95);
+            display: inline-block;
+            padding: 0.6rem 1.6rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* TIENDA / PRODUCTOS */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: 2px solid var(--color-secondary);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            color: var(--color-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .product-desc {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 0.8rem;
+        }
+
+        .quantity-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-box label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+
+        .quantity-box input {
+            width: 60px;
+            padding: 0.4rem;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn-comprar {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-comprar:hover {
+            background: #6d340f;
+        }
+
+        /* SECCIÓN DE TESTIMONIOS */
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .testimonio-card {
+            background: var(--color-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--color-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s;
+        }
+
+        .testimonio-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .testimonio-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .testimonio-avatar {
+            font-size: 2rem;
+            background: white;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .testimonio-header h4 {
+            color: var(--color-primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .testimonio-pet {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .testimonio-texto {
+            font-size: 0.95rem;
+            color: #444;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .testimonio-estrellas {
+            color: #f39c12;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* BARRA FLOTANTE LATERAL DE REDES SOCIALES */
+        .social-sidebar {
+            position: fixed;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1500;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .social-sidebar.oculto, .chat-widget-container.oculto {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.15);
+        }
+
+        .social-fb { background-color: #1877f2; }
+        .social-yt { background-color: #ff0000; }
+        .social-wa { background-color: #25d366; }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* ASISTENTE VIRTUAL ANIMADO */
+        .chat-widget-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 2500;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        @keyframes flotarConstante {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .chat-toggle-wrapper {
+            position: relative;
+            animation: flotarConstante 3s infinite ease-in-out;
+        }
+
+        .chat-toggle-btn {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .hover-preview-card {
+            position: absolute;
+            bottom: 5px;
+            right: 80px;
+            background: var(--color-white);
+            color: var(--color-primary);
+            padding: 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            border: 2px solid var(--color-secondary);
+            pointer-events: none;
+        }
+
+        .chat-toggle-wrapper:hover .hover-preview-card {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .chat-toggle-wrapper:hover .chat-toggle-btn {
+            transform: scale(1.12);
+            background: #6d340f;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.5);
+        }
+
+        .chat-notification-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 15px;
+            height: 15px;
+            background: #27ae60;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .chat-box {
+            display: none;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 340px;
+            max-height: 480px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--color-secondary);
+            animation: aparecerModal 0.3s ease-out forwards;
+        }
+
+        .chat-header {
+            background: var(--color-primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h4 {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            padding: 1rem;
+            height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #faf8f5;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.bot {
+            background: var(--color-secondary);
+            color: var(--color-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            font-weight: 500;
+        }
+
+        .message.user {
+            background: var(--color-primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 0.8rem;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-area button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            margin-left: 8px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .chat-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 0.5rem 1rem;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        .suggestion-chip {
+            background: var(--color-secondary);
+            color: var(--color-primary);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .suggestion-chip:hover {
+            background: var(--color-accent);
+        }
+
+        @keyframes latidoAnimacion {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes aparecerModal {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .croqueta-btn {
+            background: var(--color-secondary);
+            border: 3px solid var(--color-primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            animation: latidoAnimacion 2s infinite ease-in-out;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .croqueta-btn:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: var(--color-white);
+            width: 100%;
+            max-width: 550px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: aparecerModal 0.3s ease-out forwards;
+            border-top: 6px solid var(--color-primary);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #eee;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            color: var(--color-primary);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .yape-box {
+            background: #fdf2f8;
+            border: 2px dashed #a2528c;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .yape-box h4 {
+            color: #7b2cbf;
+            margin-bottom: 0.3rem;
+        }
+
+        .total-box {
+            background: #e8f8f5;
+            border: 2px solid #27ae60;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .total-box h3 {
+            color: #27ae60;
+            font-size: 1.4rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .hero-section h1 {
+                font-size: 2.3rem;
+                margin-top: 0;
+            }
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            .social-sidebar {
+                left: 8px;
+            }
+            .social-icon {
+                width: 42px;
+                height: 42px;
+            }
+            .social-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+            .chat-box {
+                width: 300px;
+                right: -10px;
+            }
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            margin-top: 3rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .footer-socials a {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .footer-socials a:hover {
+            background: var(--color-secondary);
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR DE DELIVERY FIJA -->
+    <div class="top-delivery-bar" id="topDeliveryBar">
+        <div class="bar-layer-revealed">
+            <span>*Revisa los distritos aplicables</span> 
+            <span class="highlight">aquí</span> 
+        </div>
+        <div class="bar-layer-initial" id="barLayerInitial">
+            <span>📦✨</span>
+            <span class="highlight">¡Pide tus croquetas hoy y recíbelas en casa las 24H!</span>
+            <span>🐶</span>
+        </div>
+        <div class="bar-sweeper-moto" id="barMoto">🛵💨</div>
+    </div>
+
+    <!-- MENÚ DE NAVEGACIÓN PRINCIPAL -->
+    <nav>
+        <a href="index.html" class="active">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="#ingredientes">Ingredientes</a>
+        <a href="noticias.html">Noticias</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <!-- BARRA FLOTANTE LATERAL DE REDES SOCIALES -->
+    <div id="barraFlotante" class="social-sidebar">
+        <a href="https://facebook.com/tu-pagina" target="_blank" class="social-icon social-fb" title="Síguenos en Facebook">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+        <a href="https://youtube.com/@tu-canal" target="_blank" class="social-icon social-yt" title="Canal de YouTube">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://wa.me/51999999999?text=Hola,%20deseo%20más%20información%20sobre%20las%20croquetas%20Croquedeibid" target="_blank" class="social-icon social-wa" title="Escríbenos por WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </a>
+    </div>
+
+    <!-- ASISTENTE VIRTUAL ANIMADO -->
+    <div id="asistenteVirtual" class="chat-widget-container">
+        <div id="chatBox" class="chat-box">
+            <div class="chat-header">
+                <h4>🤖 Asistente Croquedeibid</h4>
+                <button class="chat-close" onclick="toggleChat()">&times;</button>
+            </div>
+            <div id="chatMessages" class="chat-messages">
+                <div class="message bot">¡Hola! 🐶 Soy tu asistente virtual de <strong>CROQUEDEIBID</strong>. Pregúntame sobre nuestros precios, ingredientes, Yape o cómo contactarnos.</div>
+            </div>
+            <div class="chat-suggestions">
+                <button class="suggestion-chip" onclick="enviarSugerencia('¿Cuáles son los precios?')">Precios</button>
+                <button class="suggestion-chip" onclick="enviarSugerencia('¿Qué ingredientes tienen?')">Ingredientes</button>
+                <button class="suggestion-chip" onclick="enviarSugerencia('¿Cómo pago por Yape?')">Pago Yape</button>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." onkeypress="manejarEnter(event)">
+                <button onclick="enviarMensajeUser()">Enviar</button>
+            </div>
+        </div>
+
+        <div class="chat-toggle-wrapper">
+            <div class="hover-preview-card">
+                ¡Hola! ¿Buscas comida para tu perrito? 🐶 Haz clic aquí
+            </div>
+            <button class="chat-toggle-btn" onclick="toggleChat()" title="Habla con el Asistente">
+                <span>🤖</span>
+                <span class="chat-notification-dot"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HEADER CON BANNER ROTATIVO Y FONDO SÓLIDO -->
+    <header>
+        <!-- Imágenes de fondo que rotarán automáticamente -->
+        <div class="header-banner-bg">
+            <img src="1.jpg" alt="Banner 1" class="active">
+            <img src="2.jpg" alt="Banner 2">
+            <img src="3.jpg" alt="Banner 3">
+        </div>
+
+        <!-- Contenido principal centrado -->
+        <div>
+            <h1>CROQUEDEIBID</h1>
+            <div class="logo-container">
+                <img src="img/logo.jpg" alt="Logo CROQUEDEIBID">
+            </div>
+            <p>SANO Y DELICIOSO - Alimenta tu mascota con lo mejor</p>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Portada -->
+        <section id="inicio" class="hero-section">
+            <div class="hero-content">
+                <h1>CROQUEDEIBID</h1>
+                <div class="hero-subtitle">SANO Y DELICIOSO</div>
+                <p class="hero-desc">100% Natural • Alimenta tu mascota con lo mejor</p>
+                <div class="creator">Creado por Deibid Rodriguez</div>
+            </div>
+        </section>
+
+        <!-- PRODUCTOS / TIENDA -->
+        <section id="productos">
+            <h2>Nuestros Productos en Croquetas</h2>
+            <p>Elige la cantidad de kilogramos y descubre el monto exacto antes de realizar tu pago:</p>
+            
+            <div class="shop-grid">
+                <div class="product-card">
+                    <div class="product-img"><img src="img/cachorro.jpg" alt="Cachorros"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Croquedeibid Cachorros</h3>
+                        <p class="product-desc">Fórmula especial con extra calcio y nutrientes esenciales.</p>
+                        <div class="product-price">S/. 25.00 por kilo</div>
+                        <div class="quantity-box">
+                            <label for="qty-1">Kilos:</label>
+                            <input type="number" id="qty-1" min="1" max="20" value="1">
+                        </div>
+                        <button class="btn-comprar" onclick="abrirPedido('Croquedeibid Cachorros', 25.00, 'qty-1')">Comprar / Pedir</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img"><img src="img/adulto.jpg" alt="Adultos"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Croquedeibid Adultos</h3>
+                        <p class="product-desc">Energía equilibrada con proteína pura de pollo e hígado.</p>
+                        <div class="product-price">S/. 22.00 por kilo</div>
+                        <div class="quantity-box">
+                            <label for="qty-2">Kilos:</label>
+                            <input type="number" id="qty-2" min="1" max="20" value="1">
+                        </div>
+                        <button class="btn-comprar" onclick="abrirPedido('Croquedeibid Adultos', 22.00, 'qty-2')">Comprar / Pedir</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img"><img src="img/senior.jpg" alt="Senior"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Croquedeibid Senior</h3>
+                        <p class="product-desc">Fácil digestión con suplementos para cuidar sus articulaciones.</p>
+                        <div class="product-price">S/. 28.00 por kilo</div>
+                        <div class="quantity-box">
+                            <label for="qty-3">Kilos:</label>
+                            <input type="number" id="qty-3" min="1" max="20" value="1">
+                        </div>
+                        <button class="btn-comprar" onclick="abrirPedido('Croquedeibid Senior', 28.00, 'qty-3')">Comprar / Pedir</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ingredientes y Preparación -->
+        <section id="ingredientes">
+            <h2>Ingredientes y Preparación</h2>
+            <div class="grid-2">
+                <div>
+                    <h3 style="color: var(--color-primary); margin-bottom: 0.8rem;">Ingredientes:</h3>
+                    <ul>
+                        <li>Pollo e Hígado</li>
+                        <li>Verduras en general</li>
+                        <li>Papa amarilla</li>
+                        <li>Huevos de corral</li>
+                        <li>Aceite de oliva</li>
+                        <li>Sal rosada al gusto</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: var(--color-primary); margin-bottom: 0.8rem;">Preparación:</h3>
+                    <p>Se sancocha el pollo y las menudencias (15-20 min). Se tritura la papa con las verduras y aceite de oliva. Se moldea y se seca.</p>
+                </div>
+            </div>
+            <div class="img-container" style="margin-top: 2rem;"><img src="img/ingredientes.jpg" alt="Ingredientes"></div>
+            <div style="margin-top: 2.5rem; text-align: center;">
+                <button class="croqueta-btn" onclick="abrirModal()">
+                    <span style="font-size: 1.8rem;">🍪</span> Ver Detalle Visual de Ingredientes
+                </button>
+            </div>
+        </section>
+
+        <!-- TESTIMONIOS Y MENSAJES DE CLIENTES -->
+        <section id="testimonios">
+            <h2>Lo que dicen nuestros clientes</h2>
+            <p style="margin-bottom: 2rem; color: #555;">Conoce las experiencias y los mensajes de quienes ya alimentan a sus engreídos con Croquedeibid:</p>
+            
+            <div class="testimonios-grid">
+                <div class="testimonio-card">
+                    <div class="testimonio-header">
+                        <span class="testimonio-avatar">🐶</span>
+                        <div>
+                            <h4>Carla Mendoza</h4>
+                            <span class="testimonio-pet">Dueña de "Firulais" (Cachorro)</span>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"¡Le encantó a mi cachorro desde el primer día! Se come todo su platito y le ha ayudado muchísimo con su energía. El delivery llegó súper rápido y puntual."</p>
+                    <div class="testimonio-estrellas">⭐⭐⭐⭐⭐</div>
+                </div>
+
+                <div class="testimonio-card">
+                    <div class="testimonio-header">
+                        <span class="testimonio-avatar">🐾</span>
+                        <div>
+                            <h4>Jorge Luis Ramos</h4>
+                            <span class="testimonio-pet">Dueño de "Max" (Adulto)</span>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Se nota que los ingredientes son 100% naturales. El pelaje de Max ahora brilla un montón y su digestión mejoró notablemente. ¡Totalmente recomendado!"</p>
+                    <div class="testimonio-estrellas">⭐⭐⭐⭐⭐</div>
+                </div>
+
+                <div class="testimonio-card">
+                    <div class="testimonio-header">
+                        <span class="testimonio-avatar">🐕</span>
+                        <div>
+                            <h4>Lucía Fernández</h4>
+                            <span class="testimonio-pet">Dueña de "Luna" (Senior)</span>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Compré la fórmula Senior para mi perrita abuelita y le cae excelente a su estomaguito delicado. Gracias por crear un alimento tan saludable y económico."</p>
+                    <div class="testimonio-estrellas">⭐⭐⭐⭐⭐</div>
+                </div>
+
+                <div class="testimonio-card">
+                    <div class="testimonio-header">
+                        <span class="testimonio-avatar">🦴</span>
+                        <div>
+                            <h4>Marcos Silva</h4>
+                            <span class="testimonio-pet">Dueño de "Toby" (Adulto)</span>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Excelente servicio al cliente y muy fácil de pagar por Yape. Me mandaron la foto del comprobante y el pedido llegó sellado y fresco a mi casa."</p>
+                    <div class="testimonio-estrellas">⭐⭐⭐⭐⭐</div>
+                </div>
+
+                <div class="testimonio-card">
+                    <div class="testimonio-header">
+                        <span class="testimonio-avatar">🤎</span>
+                        <div>
+                            <h4>Valeria Torres</h4>
+                            <span class="testimonio-pet">Dueña de "Canela" (Cachorro)</span>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Canela es súper mañosa para comer, pero con Croquedeibid no deja ni una migaja. Me da mucha tranquilidad saber que come sin conservantes químicos."</p>
+                    <div class="testimonio-estrellas">⭐⭐⭐⭐⭐</div>
+                </div>
+
+                <div class="testimonio-card">
+                    <div class="testimonio-header">
+                        <span class="testimonio-avatar">🐾</span>
+                        <div>
+                            <h4>Renzo Paredes</h4>
+                            <span class="testimonio-pet">Dueño de "Bruno" (Adulto)</span>
+                        </div>
+                    </div>
+                    <p class="testimonio-texto">"Muy buen producto de calidad artesanal. Se nota el cariño y la dedicación con la que Deibid prepara estas croquetas. ¡Tienen un cliente fijo conmigo!"</p>
+                    <div class="testimonio-estrellas">⭐⭐⭐⭐⭐</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- MODAL INGREDIENTES -->
+        <div id="modalIngredientes" class="modal-overlay">
+            <div class="modal-content" style="max-width: 800px;">
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+                <h2 style="color: var(--color-primary); text-align: center; margin-bottom: 0.5rem; font-size: 1.8rem;">Ingredientes 100% Naturales</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; text-align: center; margin-top: 1.5rem;">
+                    <div style="background: var(--color-secondary); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <img src="img/polloehigado.jpg" alt="Pollo e Hígado" style="width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                        <h4 style="color: var(--color-primary); font-size: 1.2rem; margin-bottom: 0.4rem;">Pollo e Hígado</h4>
+                        <p style="font-size: 0.95rem;">Proteína de alta calidad.</p>
+                    </div>
+                    <div style="background: var(--color-secondary); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <img src="img/papayverdura.JPG" alt="Papa y Verduras" style="width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                        <h4 style="color: var(--color-primary); font-size: 1.2rem; margin-bottom: 0.4rem;">Papa y Verduras</h4>
+                        <p style="font-size: 0.95rem;">Fibra natural para digestión.</p>
+                    </div>
+                    <div style="background: var(--color-secondary); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <img src="img/aceiteyhuevos.JPG" alt="Aceite y Huevos" style="width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                        <h4 style="color: var(--color-primary); font-size: 1.2rem; margin-bottom: 0.4rem;">Aceite y Huevos</h4>
+                        <p style="font-size: 0.95rem;">Pelaje brillante y sano.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL PEDIDO Y PAGO YAPE -->
+        <div id="modalPedido" class="modal-overlay">
+            <div class="modal-content">
+                <button class="modal-close" onclick="cerrarPedido()">&times;</button>
+                <h2 style="color: var(--color-primary); text-align: center; margin-bottom: 0.5rem;">Finalizar Compra</h2>
+                <p id="productoSeleccionadoTexto" style="text-align: center; font-weight: bold; color: #555; margin-bottom: 1.2rem;"></p>
+                
+                <form action="https://formsubmit.co/tu-correo@gmail.com" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_subject" value="¡Nuevo Pedido de Croquedeibid!">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <div class="form-group">
+                        <label>Detalle del Pedido:</label>
+                        <input type="text" id="producto_input" name="Detalle_Pedido" readonly style="background: #f4f4f4; font-weight: bold;">
+                    </div>
+
+                    <div class="total-box">
+                        <h3 id="totalPagarTexto">Total a Yapear: S/. 0.00</h3>
+                        <input type="hidden" id="total_input" name="Monto_Total" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre y Apellido:</label>
+                        <input type="text" name="Nombre_Cliente" required placeholder="Ej. Deibid Rodriguez">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono o WhatsApp:</label>
+                        <input type="tel" name="Telefono" required placeholder="Ej. 987654321">
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección / Distrito:</label>
+                        <textarea name="Direccion" rows="2" required placeholder="Ingresa tu dirección..."></textarea>
+                    </div>
+                    <div class="yape-box">
+                        <h4>📲 Pago por Yape</h4>
+                        <p style="font-size: 0.95rem;">Número Yape: <strong>999 999 999</strong> (Titular: Deibid R.)</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Adjuntar Captura de Yape:</label>
+                        <input type="file" name="Comprobante_Yape" accept="image/*" required style="padding: 0.5rem; background: #fff;">
+                    </div>
+                    <button type="submit" class="btn-comprar" style="margin-top: 0.5rem; padding: 0.9rem;">Enviar Pedido</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p>&copy; 2026 CROQUEDEIBID - Creado por Deibid Rodriguez[cite: 1]. Todos los derechos reservados.</p>
+        <div class="footer-socials">
+            <a href="https://facebook.com/tu-pagina" target="_blank" title="Facebook">FB</a>
+            <a href="https://youtube.com/@tu-canal" target="_blank" title="YouTube">YT</a>
+            <a href="https://wa.me/51999999999" target="_blank" title="WhatsApp">WA</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Carrusel automático para el Banner de Fondo del Header
+        let currentBannerIndex = 0;
+        const bannerImages = document.querySelectorAll('.header-banner-bg img');
+
+        function rotarBanner() {
+            if (bannerImages.length === 0) return;
+            bannerImages[currentBannerIndex].classList.remove('active');
+            currentBannerIndex = (currentBannerIndex + 1) % bannerImages.length;
+            bannerImages[currentBannerIndex].classList.add('active');
+        }
+
+        // Cambia de imagen de fondo cada 4000 milisegundos (4 segundos)
+        setInterval(rotarBanner, 4000);
+
+        const barMoto = document.getElementById('barMoto');
+        const barLayerInitial = document.getElementById('barLayerInitial');
+
+        let cicloDuracion = 8000;
+        let startTime = null;
+
+        function animarBarrido(timestamp) {
+            if (!startTime) startTime = timestamp;
+            let elapsed = (timestamp - startTime) % cicloDuracion;
+            let progress = elapsed / cicloDuracion;
+            let motoPos = 105;
+
+            if (progress <= 0.5) {
+                let p = progress * 2;
+                motoPos = 105 - (p * 120);
+                barLayerInitial.style.clipPath = `polygon(0 0, ${motoPos}% 0, ${motoPos}% 100%, 0 100%)`;
+            } else {
+                barLayerInitial.style.clipPath = `polygon(0 0, 105% 0, 105% 100%, 0 100%)`;
+                motoPos = 105;
+            }
+
+            barMoto.style.left = motoPos + '%';
+            requestAnimationFrame(animarBarrido);
+        }
+
+        requestAnimationFrame(animarBarrido);
+
+        function abrirModal() { document.getElementById('modalIngredientes').style.display = 'flex'; }
+        function cerrarModal() { document.getElementById('modalIngredientes').style.display = 'none'; }
+        
+        function abrirPedido(nombreProducto, precioUnitario, inputIdQty) {
+            let cantidad = parseInt(document.getElementById(inputIdQty).value) || 1;
+            if (cantidad < 1) cantidad = 1;
+
+            let total = cantidad * precioUnitario;
+            let textoDetalle = `${nombreProducto} - ${cantidad} kg (S/. ${precioUnitario.toFixed(2)} c/u)`;
+
+            document.getElementById('productoSeleccionadoTexto').innerText = textoDetalle;
+            document.getElementById('producto_input').value = textoDetalle;
+            document.getElementById('totalPagarTexto').innerText = `Total a Yapear: S/. ${total.toFixed(2)}`;
+            document.getElementById('total_input').value = `S/. ${total.toFixed(2)}`;
+            
+            document.getElementById('modalPedido').style.display = 'flex';
+        }
+
+        function cerrarPedido() { document.getElementById('modalPedido').style.display = 'none'; }
+
+        window.onclick = function(event) {
+            let modalIng = document.getElementById('modalIngredientes');
+            let modalPed = document.getElementById('modalPedido');
+            if (event.target == modalIng) modalIng.style.display = 'none';
+            if (event.target == modalPed) modalPed.style.display = 'none';
+        }
+
+        window.addEventListener('scroll', function() {
+            const barraFlotante = document.getElementById('barraFlotante');
+            const asistente = document.getElementById('asistenteVirtual');
+            const footer = document.querySelector('footer');
+            const footerRect = footer.getBoundingClientRect();
+            
+            if (footerRect.top <= window.innerHeight - 80) {
+                barraFlotante.classList.add('oculto');
+                asistente.classList.add('oculto');
+            } else {
+                barraFlotante.classList.remove('oculto');
+                asistente.classList.remove('oculto');
+            }
+        });
+
+        function toggleChat() {
+            let chatBox = document.getElementById('chatBox');
+            chatBox.style.display = (chatBox.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function enviarSugerencia(texto) {
+            document.getElementById('chatInput').value = texto;
+            enviarMensajeUser();
+        }
+
+        function manejarEnter(event) {
+            if (event.key === 'Enter') {
+                enviarMensajeUser();
+            }
+        }
+
+        function enviarMensajeUser() {
+            let input = document.getElementById('chatInput');
+            let texto = input.value.trim();
+            if (!texto) return;
+
+            agregarMensaje(texto, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                let respuesta = generarRespuestaBot(texto);
+                agregarMensaje(respuesta, 'bot');
+            }, 500);
+        }
+
+        function agregarMensaje(texto, remitente) {
+            let chatMessages = document.getElementById('chatMessages');
+            let div = document.createElement('div');
+            div.className = 'message ' + remitente;
+            div.innerHTML = texto;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function generarRespuestaBot(pregunta) {
+            let p = pregunta.toLowerCase();
+
+            if (p.includes('precio') || p.includes('costo') || p.includes('cuanto cuesta') || p.includes('bolsa')) {
+                return "Tenemos tres presentaciones por kilo:<br>• <strong>Cachorros:</strong> S/. 25.00 el kg<br>• <strong>Adultos:</strong> S/. 22.00 el kg<br>• <strong>Senior:</strong> S/. 28.00 el kg<br>¡Puedes elegir cuántos kilos llevar directamente en la tarjeta de cada producto!";
+            } else if (p.includes('ingrediente') || p.includes('preparacion') || p.includes('de que') || p.includes('comida')) {
+                return "Nuestras croquetas son 100% naturales. Contienen: Pollo e hígado, verduras variadas, papa amarilla, huevos de corral, aceite de oliva y sal rosada. Sin conservantes ni colorantes.";
+            } else if (p.includes('yape') || p.includes('pago') || p.includes('transferencia')) {
+                return "Puedes pagar mediante Yape al número <strong>999 999 999</strong> (Titular: Deibid R.). Al hacer clic en comprar, el sistema calculará automáticamente el total exacto según los kilos que pidas.";
+            } else if (p.includes('contacto') || p.includes('whatsapp') || p.includes('telefono') || p.includes('escribir') || p.includes('facebook')) {
+                return "Puedes contactarnos directamente por:<br>• <strong>WhatsApp:</strong> 999 999 999<br>• <strong>Facebook:</strong> Croquedeibid<br>• <strong>YouTube:</strong> Canal oficial Croquedeibid";
+            } else if (p.includes('creador') || p.includes('deibid') || p.includes('autor')) {
+                return "Este gran proyecto de nutrición canina <strong>CROQUEDEIBID</strong> fue creado por <strong>Deibid Rodriguez</strong> 🐶.";
+            } else {
+                return "¡Interesante pregunta! Te sugiero revisar las secciones de nuestra página o escribirnos directamente por WhatsApp haciendo clic en el icono verde de la izquierda.";
+            }
+        }
+    </script>
+</body>
+</html>
